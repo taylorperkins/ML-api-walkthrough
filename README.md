@@ -24,6 +24,12 @@ I have set up the entire app within [api.py](src/api.py) for simplicity for now.
 
 From your CLI interface, run:
 ```
+(ML-api-walkthrough) >> cd src
 (ML-api-walkthrough) >> export FLASK_APP=api.py
 (ML-api-walkthrough) >> python -m flask run
+```
+
+To test the endpoints listed in [pass_my_requests.py](./src/pass_my_requests.py), run the following in the src directory:
+```
+(ML-api-walkthrough) >> python test_requests.py
 ```

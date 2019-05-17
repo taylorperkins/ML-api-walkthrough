@@ -19,13 +19,12 @@ def validate_request_data(schema):
         @wraps(f)
         def wrapper(*args, **kwargs):
 
-            print(schema)
+            # validate the data coming in from the client
             errors = schema().validate(request.data)
 
             if errors:
                 return errors, status.HTTP_400_BAD_REQUEST
 
-            print('success')
             return f(*args, **kwargs)
 
         return wrapper
@@ -40,14 +39,15 @@ def validate_response_data(schema):
     def decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
+            # make initial request, catching the response
             response_data, status_code = f(*args, **kwargs)
 
+            # validate the response
             errors = schema().validate(response_data)
 
             if errors:
                 return errors, status.HTTP_500_INTERNAL_SERVER_ERROR
 
-            print('success')
             return response_data, status_code
 
         return wrapper
