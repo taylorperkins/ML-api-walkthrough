@@ -7,18 +7,35 @@ from flask import request
 
 from api_models import PredictRequestSchema, PredictResponseSchema
 
-from utils import validate_request_data, validate_response_data, load_labels, load_model
+from utils import validate_request_data, validate_response_data, load_model, load_labels
 
 
-app = FlaskAPI(__name__)
+api = FlaskAPI(__name__)
+
+MODEL = None
+FLOWER_SPECIES_NAMES = None
 
 
-@app.route('/health')
+@api.before_first_request
+def load_globals():
+    print('Here')
+    # this initial process is just brought over from the sample_prediction.py
+    with open("./../src/ModelConfig.yaml", "r") as f:
+        model_config = yaml.safe_load(f)
+
+    global MODEL
+    global FLOWER_SPECIES_NAMES
+
+    MODEL = load_model(config=model_config)
+    FLOWER_SPECIES_NAMES = load_labels(config=model_config)
+
+
+@api.route('/health')
 def health():
     return 'Healthcheck says go!', status.HTTP_200_OK
 
 
-@app.route('/predict', methods=['POST'])
+@api.route('/predict', methods=['POST'])
 @validate_request_data(PredictRequestSchema)
 @validate_response_data(PredictResponseSchema)
 def predict():
@@ -46,19 +63,20 @@ def predict():
         status.HTTP_200_OK
     )
 
-
-if __name__ == '__main__':
-
-    # this initial process is just brought over from the sample_prediction.py
-    with open("./../src/ModelConfig.yaml", "r") as f:
-        model_config = yaml.safe_load(f)
-
-    # Load the model from the file based on the config
-    MODEL = load_model(config=model_config)
-    app.logger.debug('Model successfully loaded into env')
-
-    # Load in the labels from the file based on the config
-    FLOWER_SPECIES_NAMES = load_labels(config=model_config)
-    app.logger.debug('Labels successfully loaded into env')
-
-    app.run()
+#
+# if __name__ == '__main__':
+#
+#     # this initial process is just brought over from the sample_prediction.py
+#     with open("./../src/ModelConfig.yaml", "r") as f:
+#         model_config = yaml.safe_load(f)
+#
+#     # Load the model from the file based on the config
+#     MODEL = load_model(config=model_config)
+#
+#     api.logger.debug('Model successfully loaded into env')
+#
+#     # Load in the labels from the file based on the config
+#     FLOWER_SPECIES_NAMES = load_labels(config=model_config)
+#     api.logger.debug('Labels successfully loaded into env')
+#
+#     api.run()

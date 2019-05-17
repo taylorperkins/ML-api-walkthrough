@@ -4,7 +4,7 @@ from pass_my_requests import request_and_responses
 
 
 for elem in request_and_responses:
-    r = requests.post('http://127.0.0.1:5000/predict', data=elem["Request"])
+    r = requests.post('http://0.0.0.0:8000/predict', data=elem["Request"])
     try:
         r.raise_for_status()
         response = r.json()
