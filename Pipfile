@@ -10,6 +10,7 @@ numpy = "==1.16.3"
 scikit-learn = "==0.20.3"
 scipy = "==1.2.1"
 PyYAML = "==5.1"
+Flask-Api = "==1.1"
 
 [requires]
 python_version = "3.7"
