@@ -32,3 +32,17 @@ To test the endpoints listed in [pass_my_requests.py](./src/pass_my_requests.py)
 ```
 (ML-api-walkthrough) >> python test_requests.py
 ```
+
+
+## Running Tests (MVP)
+We are using [locustio])(https://locust.io/) to run simulated tests against the endpoints provided.
+With your application up and running from above..
+Here is how you can get started testing out those endpoints:
+```
+(ML-api-walkthrough) >> locust --host=http://0.0.0.0:8000 -f ./src/tests/locustfile.py
+```
+
+This should allow you then visit [this page](http://127.0.0.1:8089/) to input a number of users, and a hatch rate for the simulations.
+Once you click "Start Swarming", you will be brought to a new page that shows you some stats around the simulations such as number of requests, number of fails, avg min and max times.
+
+
