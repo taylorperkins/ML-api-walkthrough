@@ -33,7 +33,7 @@ def validate_request_data(schema):
 
 def validate_response_data(schema):
     """Try to validate response data given a schema
-    If there is an err, raise 400 with validation message
+    If there is an err, raise 500 with validation message
     Else, return the endpoint like normal
     """
     def decorator(f):
