@@ -12,8 +12,7 @@ app = FlaskAPI(__name__)
 
 
 @app.route('/health')
-def hello_world():
-    print(MODEL)
+def health():
     return 'Healthcheck says go!', status.HTTP_200_OK
 
 
@@ -34,8 +33,7 @@ def predict():
     prediction = MODEL.predict(single_row_record)
     predicted_flower_species = FLOWER_SPECIES_NAMES[prediction]
 
-    app.debug(f'Prediction: {prediction}')
-    app.debug(f'Lebel: {predicted_flower_species}')
+    print(predicted_flower_species[0])
 
     return '', status.HTTP_200_OK
 
