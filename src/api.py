@@ -18,7 +18,6 @@ FLOWER_SPECIES_NAMES = None
 
 @api.before_first_request
 def load_globals():
-    print('Here')
     # this initial process is just brought over from the sample_prediction.py
     with open("./../src/ModelConfig.yaml", "r") as f:
         model_config = yaml.safe_load(f)
@@ -62,21 +61,3 @@ def predict():
         {'FlowerID': request.data['FlowerID'], 'Species': predicted_flower_species[0]},
         status.HTTP_200_OK
     )
-
-#
-# if __name__ == '__main__':
-#
-#     # this initial process is just brought over from the sample_prediction.py
-#     with open("./../src/ModelConfig.yaml", "r") as f:
-#         model_config = yaml.safe_load(f)
-#
-#     # Load the model from the file based on the config
-#     MODEL = load_model(config=model_config)
-#
-#     api.logger.debug('Model successfully loaded into env')
-#
-#     # Load in the labels from the file based on the config
-#     FLOWER_SPECIES_NAMES = load_labels(config=model_config)
-#     api.logger.debug('Labels successfully loaded into env')
-#
-#     api.run()
