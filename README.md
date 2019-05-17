@@ -14,7 +14,7 @@ Have the following installed:
 
 To get started with your environment, run: 
 ```
-pipenv install
+pipenv install --dev
 ```
 
 This should install everything listed from within the [Pipfile](./Pipfile) provided.

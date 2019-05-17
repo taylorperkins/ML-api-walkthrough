@@ -1,3 +1,4 @@
 .idea/*
 Pipfile.lock
 CodingChallenge.md
+*/__pycache__/*
