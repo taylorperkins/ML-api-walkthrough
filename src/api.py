@@ -54,10 +54,17 @@ def predict():
         ]
     ).reshape(1, -1)
 
+    # TODO: what should happen if .predict() takes forever?
+    # TODO: or there is are lot more features to consider?
+    # TODO: consider a queue approach to let the client take a ticket,
+    # TODO: and wait till the processing is done. Flask may not be best for this..
     prediction = MODEL.predict(single_row_record)
     predicted_flower_species = FLOWER_SPECIES_NAMES[prediction]
 
     return (
-        {'FlowerID': request.data['FlowerID'], 'Species': predicted_flower_species[0]},
+        {
+            'FlowerID': request.data['FlowerID'],
+            'Species': predicted_flower_species[0]
+        },
         status.HTTP_200_OK
     )
