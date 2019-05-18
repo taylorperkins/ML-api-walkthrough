@@ -1,4 +1,5 @@
 import yaml
+from logging.config import dictConfig
 
 import numpy as np
 
@@ -7,13 +8,49 @@ from flask import request
 
 from api_models import PredictRequestSchema, PredictResponseSchema
 
-from utils import validate_request_data, validate_response_data, load_model, load_labels
+from utils import (validate_request_data, validate_response_data, load_model, load_labels, log_status_codes_end_endpoints)
+
+
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s %(process)d] [%(levelname)s] [%(module)s] %(message)s',
+        'datefmt': '%Y-%m-%d %H:%M:%S'
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
 
 
 application = FlaskAPI(__name__)
 
 MODEL = None
 FLOWER_SPECIES_NAMES = None
+
+
+@application.after_request
+def log_status_codes_end_endpoints(response):
+    status_code = response.status_code
+
+    msg = f'{request.path} - {status_code}'
+
+    if (status_code >= 200) and (status_code < 300):
+        application.logger.info(msg)
+
+    elif (status_code >= 300) and (status_code < 400):
+        application.logger.debug(msg)
+
+    else:
+        application.logger.error(msg)
+
+    return response
 
 
 @application.before_first_request

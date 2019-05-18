@@ -1,10 +1,10 @@
 import os
 
+from functools import wraps
+
 from sklearn.externals import joblib
 
 import numpy as np
-
-from functools import wraps
 
 from flask import request
 from flask_api import status
