@@ -17,7 +17,7 @@ I will list out the different commands here if you want to take advantage of the
 Otherwise, I will link the commands to the more expressive version.
 
 ### Application Commands:
-* [**_make init_**](#getting-started!)
+* [**_make init_**](#getting-started)
     * Creates a brand new pipenv for ya via `pip3`
     * Installs everything from scratch
     * Activates the environment
@@ -25,7 +25,7 @@ Otherwise, I will link the commands to the more expressive version.
 * [**_make serve_**](#serving-the-app)
     * Runs the api via gunicorn
     
-* [**_make build_**](#running-in-docker!)
+* [**_make build_**](#running-in-docker)
     * Builds a docker image for the api
     * Runs the app behind the scenes
     
