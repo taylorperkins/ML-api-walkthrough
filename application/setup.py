@@ -12,6 +12,7 @@ setup(
         'scipy==1.2.1',
         'PyYAML==5.1',
         'Flask-Api==1.1',
+        'flask-wtf',
         'marshmallow==2.19.2',
         'gunicorn==19.9.0',
         'locustio'

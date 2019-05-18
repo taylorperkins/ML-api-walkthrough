@@ -1,8 +1,7 @@
 import yaml
 from logging.config import dictConfig
 
-from flask_api import FlaskAPI
-from flask import request
+from flask import request, Flask
 
 from .utils import load_model, load_labels
 
@@ -34,7 +33,10 @@ dictConfig({
 })
 
 
-api = FlaskAPI(__name__)
+api = Flask(__name__)
+
+# TODO: Put this in a config file
+api.config['SECRET_KEY'] = 'you-will-never-guess'
 
 
 @api.after_request

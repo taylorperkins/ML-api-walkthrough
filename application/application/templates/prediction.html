@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Feature Input{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+  <form action="" method="post" novalidate>
+      {{ form.hidden_tag() }}
+
+      <p>
+          {{ form.FlowerID.label }}
+          {{ form.FlowerID }}
+          {% for error in form.FlowerID.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.SepalLength.label }}
+          {{ form.SepalLength }}
+          {% for error in form.SepalLength.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.SepalWidth.label }}
+          {{ form.SepalWidth }}
+          {% for error in form.SepalWidth.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.PetalLength.label }}
+          {{ form.PetalLength }}
+          {% for error in form.PetalLength.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.PetalWidth.label }}
+          {{ form.PetalWidth }}
+          {% for error in form.PetalWidth.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+
+      <p>{{ form.submit() }}</p>
+  </form>
+
+  {% if prediction %}
+      <p>Best guess for FlowerID {{ prediction['FlowerID'] }}: <em><strong>{{ prediction['Species'] }}</strong></em></p>
+  {% endif %}
+
+{% endblock %}
