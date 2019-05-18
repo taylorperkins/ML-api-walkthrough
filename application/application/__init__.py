@@ -9,7 +9,7 @@ from .utils import load_model, load_labels
 
 # Load these at the beginning. If they fail, the rest of the app will also fail.
 # TODO: Find a way to dynamically update which model to use without shutting down the app
-with open("./../src/ModelConfig.yaml", "r") as f:
+with open("./application/ModelConfig.yaml", "r") as f:
     model_config = yaml.safe_load(f)
 
 MODEL = load_model(config=model_config)
