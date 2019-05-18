@@ -10,13 +10,13 @@ from api_models import PredictRequestSchema, PredictResponseSchema
 from utils import validate_request_data, validate_response_data, load_model, load_labels
 
 
-api = FlaskAPI(__name__)
+application = FlaskAPI(__name__)
 
 MODEL = None
 FLOWER_SPECIES_NAMES = None
 
 
-@api.before_first_request
+@application.before_first_request
 def load_globals():
     # this initial process is just brought over from the sample_prediction.py
     with open("./../src/ModelConfig.yaml", "r") as f:
@@ -29,12 +29,12 @@ def load_globals():
     FLOWER_SPECIES_NAMES = load_labels(config=model_config)
 
 
-@api.route('/health')
+@application.route('/health')
 def health():
-    return 'Healthcheck says go!', status.HTTP_200_OK
+    return {'message': 'Success!', 'status_code': 200}, status.HTTP_200_OK
 
 
-@api.route('/predict', methods=['POST'])
+@application.route('/predict', methods=['POST'])
 @validate_request_data(PredictRequestSchema)
 @validate_response_data(PredictResponseSchema)
 def predict():
@@ -68,3 +68,7 @@ def predict():
         },
         status.HTTP_200_OK
     )
+
+
+if __name__ == '__main__':
+    application.run(host='0.0.0.0', port=8000)
