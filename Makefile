@@ -15,11 +15,11 @@ help:
 
 init:
 	pip3 install pipenv
-	pipenv install --dev --skip-lock
+	pipenv install --dev --skip-lock -e application/
 	pipenv shell
 
 serve:
-	gunicorn -b 0.0.0.0:8000 --chdir src api
+	gunicorn -b 0.0.0.0:8000 --chdir application application:api
 
 build:
 	docker build --tag flask_gunicorn_app .
@@ -29,7 +29,7 @@ build:
 
 locust-test:
 	@echo "Hey.. You should go here: http://127.0.0.1:8089/"
-	@locust --host=http://0.0.0.0:8000 -f src/tests/locustfile.py
+	@locust --host=http://0.0.0.0:8000 -f application/tests/locustfile.py
 
 pass-my-requests:
-	python src/test_requests.py
+	python application/tests/test_requests.py

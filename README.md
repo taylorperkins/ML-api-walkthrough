@@ -41,11 +41,12 @@ Otherwise, I will link the commands to the more expressive version.
 ## Getting started!
 To get started with your environment, run: 
 ```bash
-pipenv install --dev --skip-lock
+pipenv install --dev --skip-lock -e application/
 pipenv shell
 ```
 
-This should install everything listed from within the [Pipfile](./Pipfile) provided.
+This should install everything listed from within the [setup.py](./application/setup.py) that is being used 
+within the application.
 
 Since this is a flask app, there are a couple things you will need to run it locally.
 I have set up the entire app within [api.py](src/api.py) for simplicity for now.
@@ -54,14 +55,13 @@ I have set up the entire app within [api.py](src/api.py) for simplicity for now.
 
 From your CLI interface, run:
 ```bash
-cd src
-gunicorn --bind 0.0.0.0:8000 api
+gunicorn -b 0.0.0.0:8000 --chdir application application:api
 ```
 
 ## Example requests
 To test the endpoints listed in [pass_my_requests.py](./src/pass_my_requests.py), run the following in the src directory:
 ```bash
-python test_requests.py
+python application/tests/test_requests.py
 ```
 
 
@@ -70,7 +70,7 @@ We are using [locustio])(https://locust.io/) to run simulated tests against the 
 With your application up and running from above..
 Here is how you can get started testing out those endpoints:
 ```bash
-locust --host=http://0.0.0.0:8000 -f ./src/tests/locustfile.py
+locust --host=http://0.0.0.0:8000 -f application/tests/locustfile.py
 ```
 
 This should allow you then visit [this page](http://127.0.0.1:8089/) to input a number of users, and a hatch rate for the simulations.

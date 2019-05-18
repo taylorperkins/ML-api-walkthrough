@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 requests = "==2.22.0"
+application = {path = "./application",editable = true}
 
 [packages]
 numpy = "==1.16.3"

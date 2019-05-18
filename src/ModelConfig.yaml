@@ -1,6 +1,0 @@
-Model:
-  Objects:
-    FolderName: "../model_objects"
-    ModelFileName: "iris-classifier.pkl"
-    TargetClassLabelNamesFileName: "flower_class_label_names.npy"
-    PredictionRequirementsFile: "prediction-requirements.txt"
