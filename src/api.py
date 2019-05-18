@@ -31,7 +31,7 @@ def load_globals():
 
 @application.route('/health')
 def health():
-    return 'Healthcheck says go!', status.HTTP_200_OK
+    return {'message': 'Success!', 'status_code': 200}, status.HTTP_200_OK
 
 
 @application.route('/predict', methods=['POST'])
