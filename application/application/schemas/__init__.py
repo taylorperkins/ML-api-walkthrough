@@ -1,0 +1,1 @@
+from application.schemas.predict import RequestSchema as PredictRequestSchema, ResponseSchema as PredictResponseSchema
